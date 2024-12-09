@@ -5,7 +5,7 @@ namespace Booka.Infrastructure.Database;
 
 public class BookaDbContext : DbContext
 {
-    protected BookaDbContext(DbContextOptions<BookaDbContext> options)
+    public BookaDbContext(DbContextOptions<BookaDbContext> options)
         : base(options)
     {
     }

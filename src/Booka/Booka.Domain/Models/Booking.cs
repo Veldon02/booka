@@ -8,5 +8,5 @@ public class Booking : BaseEntity<int>
 
     public DateTime BookDate { get; set; }
 
-    public DateTime CheckInDate { get; set; }
+    public DateTime? CheckInDate { get; set; }
 }
