@@ -1,4 +1,5 @@
 ﻿using Booka.Application.Services;
+using Booka.BackOffice.Middleware;
 using Booka.Domain.Interfaces.Repositories;
 using Booka.Domain.Interfaces.Services;
 using Booka.Infrastructure.Database.Repositories;
@@ -11,7 +12,7 @@ public static class DependencyInjection
     {
         services.AddServices();
         services.AddRepositories();
-       
+        services.AddExceptionHandling();
     }
 
     private static void AddServices(this IServiceCollection services)
@@ -22,5 +23,12 @@ public static class DependencyInjection
     private static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
+    }
+
+    private static void AddExceptionHandling(this IServiceCollection services)
+    {
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+
+        services.AddProblemDetails();
     }
 }
