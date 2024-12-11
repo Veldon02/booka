@@ -1,10 +1,11 @@
 ﻿using Booka.Domain.Interfaces.Repositories;
+using Booka.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Booka.Infrastructure.Database.Repositories;
 
 public class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
-    where TEntity : class
+    where TEntity : BaseEntity<TId>
 {
     private BookaDbContext _dbContext;
     protected DbSet<TEntity> dbSet;
@@ -15,14 +16,16 @@ public class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
         dbSet = _dbContext.Set<TEntity>();
     }
 
-    public async Task<TEntity?> GetById(TId id)
+    public async Task<TEntity?> GetById(TId id, bool asNoTracking = true)
     {
-        return await dbSet.FindAsync(id);
+        var query = asNoTracking ? dbSet.AsNoTracking() : dbSet;
+        return await query.FirstOrDefaultAsync(x => Equals(x.Id, id));
     }
 
-    public async Task<List<TEntity>> GetAll()
+    public async Task<List<TEntity>> GetAll(bool asNoTracking = true)
     {
-        return await dbSet.ToListAsync();
+        var query = asNoTracking ? dbSet.AsNoTracking() : dbSet;
+        return await query.ToListAsync();
     }
 
     public async Task<TEntity> Add(TEntity entity)

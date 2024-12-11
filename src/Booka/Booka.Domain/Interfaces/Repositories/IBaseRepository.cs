@@ -3,9 +3,9 @@
 public interface IBaseRepository<TEntity, TId>
     where TEntity : class 
 {
-    Task<TEntity?> GetById(TId id);
+    Task<TEntity?> GetById(TId id, bool asNoTracking = true);
 
-    Task<List<TEntity>> GetAll();
+    Task<List<TEntity>> GetAll(bool asNoTracking = true);
 
     Task<TEntity> Add(TEntity entity);
 
