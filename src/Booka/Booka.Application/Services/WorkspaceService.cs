@@ -1,4 +1,5 @@
-﻿using Booka.Domain.Interfaces.Repositories;
+﻿using Booka.Application.Exceptions;
+using Booka.Domain.Interfaces.Repositories;
 using Booka.Domain.Interfaces.Services;
 using Booka.Domain.Models;
 
@@ -25,7 +26,8 @@ public class WorkspaceService : IWorkspaceService
 
     public async Task UpdateAsync(int workspaceId, Workspace workspace)
     {
-        var existingWorkspace = await _workspaceRepository.GetById(workspaceId, false) ?? throw new Exception("Not Found");
+        var existingWorkspace = await _workspaceRepository.GetById(workspaceId, false)
+                                ?? throw new NotFoundException($"Workspace {workspaceId} is not found");
 
         existingWorkspace.Name = workspace.Name;
         existingWorkspace.Address = workspace.Address;
@@ -37,6 +39,7 @@ public class WorkspaceService : IWorkspaceService
 
     public async Task<Workspace> GetByIdAsync(int workspaceId)
     {
-        return await _workspaceRepository.GetById(workspaceId) ?? throw new Exception("NotFound");
+        return await _workspaceRepository.GetById(workspaceId) 
+               ?? throw new NotFoundException($"Workspace {workspaceId} is not found");
     }
 }
