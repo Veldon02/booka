@@ -1,6 +1,4 @@
-﻿using Booka.Domain.Interfaces.Repositories;
-using Booka.Infrastructure.Database;
-using Booka.Infrastructure.Database.Repositories;
+﻿using Booka.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,15 +13,5 @@ public static class DependencyInjection
         {
             options.UseSqlServer(configuration.GetConnectionString("Database"));
         });
-
-        services.AddRepositories();
-    }
-
-    private static void AddRepositories(this IServiceCollection services)
-    {
-        services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
-        services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
-        services.AddScoped<IBookingRepository, BookingRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
     }
 }
