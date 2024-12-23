@@ -1,4 +1,4 @@
-﻿using Booka.Domain.Models;
+﻿using Booka.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Booka.Infrastructure.Database;

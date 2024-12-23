@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using ApplicationException = Booka.Application.Exceptions.ApplicationException;
+using ApplicationException = Booka.Core.Exceptions.ApplicationException;
 
 namespace Booka.WebApp.Middleware;
 

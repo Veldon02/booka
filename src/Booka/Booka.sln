@@ -3,23 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booka.WebApp", "Booka.WebApp\Booka.WebApp.csproj", "{BAEFC784-8590-46C6-95F3-6EC3B9532A63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booka.WebApp", "Booka.WebApp\Booka.WebApp.csproj", "{BAEFC784-8590-46C6-95F3-6EC3B9532A63}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Presentation", "01_Presentation", "{4EA58269-57D8-449C-966C-CC3CF8686F59}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Application", "02_Application", "{821D85C8-D8CE-43D0-BE38-9321AFF262BB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Infrastructure", "03_Infrastructure", "{78152D35-4C99-40BB-87C6-C19BDAE7B2F9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Domain", "03_Domain", "{9E2DBE32-68B4-46CD-B010-AEE0928DFBF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booka.BackOffice", "Booka.BackOffice\Booka.BackOffice.csproj", "{54A75974-92D1-4F31-BEAB-76A9FCCE4D53}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_Infrastructure", "04_Infrastructure", "{78152D35-4C99-40BB-87C6-C19BDAE7B2F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booka.Infrastructure", "Booka.Infrastructure\Booka.Infrastructure.csproj", "{9F5B9334-CE7C-44F3-80EC-057F5395BC45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booka.BackOffice", "Booka.BackOffice\Booka.BackOffice.csproj", "{54A75974-92D1-4F31-BEAB-76A9FCCE4D53}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Core", "02_Core", "{775A8F98-71B8-43DE-B89D-03BE7BE7234F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booka.Application", "Booka.Application\Booka.Application.csproj", "{9B58DEF1-DA13-4336-834C-00D8572F3BDA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booka.Domain", "Booka.Domain\Booka.Domain.csproj", "{BCAF73C8-E44D-4AE2-A9A0-12E61FC18956}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booka.Infrastructure", "Booka.Infrastructure\Booka.Infrastructure.csproj", "{9F5B9334-CE7C-44F3-80EC-057F5395BC45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booka.Core", "Booka.Core\Booka.Core.csproj", "{496EBA40-D77E-4A65-93B9-F5E06F6EC308}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,18 +31,14 @@ Global
 		{54A75974-92D1-4F31-BEAB-76A9FCCE4D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54A75974-92D1-4F31-BEAB-76A9FCCE4D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54A75974-92D1-4F31-BEAB-76A9FCCE4D53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B58DEF1-DA13-4336-834C-00D8572F3BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B58DEF1-DA13-4336-834C-00D8572F3BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B58DEF1-DA13-4336-834C-00D8572F3BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B58DEF1-DA13-4336-834C-00D8572F3BDA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BCAF73C8-E44D-4AE2-A9A0-12E61FC18956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCAF73C8-E44D-4AE2-A9A0-12E61FC18956}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCAF73C8-E44D-4AE2-A9A0-12E61FC18956}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCAF73C8-E44D-4AE2-A9A0-12E61FC18956}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9F5B9334-CE7C-44F3-80EC-057F5395BC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9F5B9334-CE7C-44F3-80EC-057F5395BC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F5B9334-CE7C-44F3-80EC-057F5395BC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F5B9334-CE7C-44F3-80EC-057F5395BC45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{496EBA40-D77E-4A65-93B9-F5E06F6EC308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{496EBA40-D77E-4A65-93B9-F5E06F6EC308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{496EBA40-D77E-4A65-93B9-F5E06F6EC308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{496EBA40-D77E-4A65-93B9-F5E06F6EC308}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,9 +46,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{BAEFC784-8590-46C6-95F3-6EC3B9532A63} = {4EA58269-57D8-449C-966C-CC3CF8686F59}
 		{54A75974-92D1-4F31-BEAB-76A9FCCE4D53} = {4EA58269-57D8-449C-966C-CC3CF8686F59}
-		{9B58DEF1-DA13-4336-834C-00D8572F3BDA} = {821D85C8-D8CE-43D0-BE38-9321AFF262BB}
-		{BCAF73C8-E44D-4AE2-A9A0-12E61FC18956} = {9E2DBE32-68B4-46CD-B010-AEE0928DFBF5}
 		{9F5B9334-CE7C-44F3-80EC-057F5395BC45} = {78152D35-4C99-40BB-87C6-C19BDAE7B2F9}
+		{496EBA40-D77E-4A65-93B9-F5E06F6EC308} = {775A8F98-71B8-43DE-B89D-03BE7BE7234F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F85A28EE-0DA1-4A61-A622-35982142A418}

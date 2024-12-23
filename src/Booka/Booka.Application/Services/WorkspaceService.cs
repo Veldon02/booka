@@ -31,8 +31,7 @@ public class WorkspaceService : IWorkspaceService
 
         existingWorkspace.Name = workspace.Name;
         existingWorkspace.Address = workspace.Address;
-        existingWorkspace.ContactEmail = workspace.ContactEmail;
-        existingWorkspace.ContactPhoneNumber = workspace.ContactPhoneNumber;
+        existingWorkspace.Email = workspace.Email;
         
         await _workspaceRepository.Update(existingWorkspace);
     }

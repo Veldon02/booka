@@ -1,5 +1,6 @@
-﻿using Booka.Domain.Interfaces.Repositories;
-using Booka.Domain.Models;
+﻿
+using Booka.Core.Domain;
+using Booka.Core.Interfaces.Repositories;
 
 namespace Booka.Infrastructure.Database.Repositories;
 
