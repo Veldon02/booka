@@ -22,7 +22,7 @@ namespace Booka.Infrastructure.Database.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Booka.Domain.Models.Booking", b =>
+            modelBuilder.Entity("Booka.Core.Domain.Booking", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace Booka.Infrastructure.Database.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("Booka.Domain.Models.User", b =>
+            modelBuilder.Entity("Booka.Core.Domain.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,11 +86,7 @@ namespace Booka.Infrastructure.Database.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime");
@@ -102,7 +98,7 @@ namespace Booka.Infrastructure.Database.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Booka.Domain.Models.Workplace", b =>
+            modelBuilder.Entity("Booka.Core.Domain.Workplace", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +131,7 @@ namespace Booka.Infrastructure.Database.Migrations
                     b.ToTable("Workplaces");
                 });
 
-            modelBuilder.Entity("Booka.Domain.Models.Workspace", b =>
+            modelBuilder.Entity("Booka.Core.Domain.Workspace", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,22 +143,22 @@ namespace Booka.Infrastructure.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("ContactEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ContactPhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime");
@@ -174,15 +170,15 @@ namespace Booka.Infrastructure.Database.Migrations
                     b.ToTable("Workspaces");
                 });
 
-            modelBuilder.Entity("Booka.Domain.Models.Booking", b =>
+            modelBuilder.Entity("Booka.Core.Domain.Booking", b =>
                 {
-                    b.HasOne("Booka.Domain.Models.User", "User")
+                    b.HasOne("Booka.Core.Domain.User", "User")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Booka.Domain.Models.Workplace", "Workplace")
+                    b.HasOne("Booka.Core.Domain.Workplace", "Workplace")
                         .WithMany()
                         .HasForeignKey("WorkplaceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -193,9 +189,9 @@ namespace Booka.Infrastructure.Database.Migrations
                     b.Navigation("Workplace");
                 });
 
-            modelBuilder.Entity("Booka.Domain.Models.Workplace", b =>
+            modelBuilder.Entity("Booka.Core.Domain.Workplace", b =>
                 {
-                    b.HasOne("Booka.Domain.Models.Workspace", "Workspace")
+                    b.HasOne("Booka.Core.Domain.Workspace", "Workspace")
                         .WithMany("Workplaces")
                         .HasForeignKey("WorkspaceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -204,12 +200,12 @@ namespace Booka.Infrastructure.Database.Migrations
                     b.Navigation("Workspace");
                 });
 
-            modelBuilder.Entity("Booka.Domain.Models.User", b =>
+            modelBuilder.Entity("Booka.Core.Domain.User", b =>
                 {
                     b.Navigation("Bookings");
                 });
 
-            modelBuilder.Entity("Booka.Domain.Models.Workspace", b =>
+            modelBuilder.Entity("Booka.Core.Domain.Workspace", b =>
                 {
                     b.Navigation("Workplaces");
                 });

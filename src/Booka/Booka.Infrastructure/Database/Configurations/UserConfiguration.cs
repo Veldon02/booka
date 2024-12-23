@@ -1,4 +1,4 @@
-﻿using Booka.Domain.Models;
+﻿using Booka.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,8 +15,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.LastName).HasColumnType("nvarchar(50)"); //TODO: should be encrypted
 
         builder.Property(x => x.Email).HasColumnType("nvarchar(50)"); //TODO: should be encrypted
-        builder.Property(x => x.Password).HasColumnType("nvarchar(50)"); //TODO: should be encrypted
-        builder.Property(x => x.PhoneNumber).HasColumnType("nvarchar(50)"); //TODO: should be encrypted
+        builder.Property(x => x.Password).HasColumnType("nvarchar(max)");
 
         builder.Property(x => x.UpdateDate).HasColumnType("datetime");
         builder.Property(x => x.CreateDate).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");

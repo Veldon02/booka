@@ -1,4 +1,6 @@
-﻿using Booka.Infrastructure.Database;
+﻿using Booka.Core.Interfaces.Security;
+using Booka.Infrastructure.Database;
+using Booka.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,5 +15,8 @@ public static class DependencyInjection
         {
             options.UseSqlServer(configuration.GetConnectionString("Database"));
         });
+
+        services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IHasher, Hasher>();
     }
 }

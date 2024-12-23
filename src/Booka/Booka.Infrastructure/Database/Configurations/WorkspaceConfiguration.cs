@@ -1,4 +1,4 @@
-﻿using Booka.Domain.Models;
+﻿using Booka.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,8 +14,8 @@ public class WorkspaceConfiguration : IEntityTypeConfiguration<Workspace>
         builder.Property(x => x.Name).HasColumnType("nvarchar(50)");
         builder.Property(x => x.Address).HasColumnType("nvarchar(50)");
 
-        builder.Property(x => x.ContactEmail).HasColumnType("nvarchar(50)"); //TODO: should be encrypted
-        builder.Property(x => x.ContactPhoneNumber).HasColumnType("nvarchar(20)"); //TODO: should be encrypted
+        builder.Property(x => x.Email).HasColumnType("nvarchar(50)"); //TODO: should be encrypted
+        builder.Property(x => x.Password).HasColumnType("nvarchar(max)");
 
         builder.Property(x => x.UpdateDate).HasColumnType("datetime");
         builder.Property(x => x.CreateDate).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
