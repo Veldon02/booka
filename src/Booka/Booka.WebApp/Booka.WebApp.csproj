@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Booka.Application\Booka.Application.csproj" />
+    <ProjectReference Include="..\Booka.Core\Booka.Core.csproj" />
     <ProjectReference Include="..\Booka.Infrastructure\Booka.Infrastructure.csproj" />
   </ItemGroup>
 

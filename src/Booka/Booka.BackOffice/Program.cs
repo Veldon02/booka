@@ -1,14 +1,21 @@
-using Booka.BackOffice.Infrastucture;
 using Booka.BackOffice.Mappers;
+using Booka.BackOffice.Extensions;
 using Booka.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
+var config = builder.Configuration;
 
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddServices();
+builder.Services.AddRepositories();
+builder.Services.AddConfigurations(config);
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
-builder.Services.AddDependencyInjection();
+
+builder.Services.AddControllersWithOptions();
+builder.Services.AddAuthentication(config);
+
+builder.Services.AddExceptionHandling();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -24,6 +31,8 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.MapControllers();
 

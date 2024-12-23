@@ -6,7 +6,5 @@ public class UpdateWorkspaceRequest
 
     public string Address { get; set; }
 
-    public string ContactEmail { get; set; }
-
-    public string ContactPhoneNumber { get; set; }
+    public string Email { get; set; }
 }
