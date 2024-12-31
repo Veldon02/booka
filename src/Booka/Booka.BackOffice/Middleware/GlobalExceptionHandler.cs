@@ -26,7 +26,13 @@ public class GlobalExceptionHandler : IExceptionHandler
         var problemDetails = new ProblemDetails
         {
             Status = (int)statusCode,
-            Title = exception.Message,
+            Title = "An error occured",
+            Detail = exception.Message,
+            Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
+            Extensions = new Dictionary<string, object?>
+            {
+                { "requestId", httpContext.TraceIdentifier },
+            },
         };
 
         httpContext.Response.StatusCode = problemDetails.Status.Value;
