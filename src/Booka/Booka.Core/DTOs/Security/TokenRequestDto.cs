@@ -1,4 +1,4 @@
-﻿namespace Booka.Core.DTOs;
+﻿namespace Booka.Core.DTOs.Security;
 
 public class TokenRequestDto
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Booka.Core.Domain;
-using Booka.Core.DTOs;
+using Booka.Core.DTOs.Security;
 using Booka.WebApp.ApiModels.Authentication;
 using Booka.WebApp.ApiModels.Workspace;
 

@@ -1,4 +1,4 @@
-﻿namespace Booka.Core.Domain.enums;
+﻿namespace Booka.Core.Domain.enums.Workspace;
 
 public enum WorkplaceType
 {

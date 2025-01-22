@@ -1,4 +1,4 @@
-﻿using Booka.Core.Domain.enums;
+﻿using Booka.Core.Domain.enums.Workspace;
 
 namespace Booka.Core.Domain;
 

@@ -1,5 +1,5 @@
 ﻿using Booka.Core.Domain;
-using Booka.Core.DTOs;
+using Booka.Core.DTOs.Security;
 
 namespace Booka.Core.Interfaces.Security;
 

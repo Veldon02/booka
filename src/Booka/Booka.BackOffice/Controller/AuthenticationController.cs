@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Booka.BackOffice.ApiModels.Authentication;
 using Booka.Core.Domain;
-using Booka.Core.DTOs;
+using Booka.Core.DTOs.Security;
 using Booka.Core.Interfaces.Security;
 using Booka.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
