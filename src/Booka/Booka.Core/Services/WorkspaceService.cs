@@ -1,4 +1,7 @@
 ﻿using Booka.Core.Domain;
+using Booka.Core.Domain.enums.Workspace;
+using Booka.Core.DTOs.Common;
+using Booka.Core.DTOs.Workspace;
 using Booka.Core.Exceptions;
 using Booka.Core.Interfaces.Repositories;
 using Booka.Core.Interfaces.Services;
@@ -42,5 +45,12 @@ public class WorkspaceService : IWorkspaceService
     {
         return await _workspaceRepository.GetById(workspaceId) 
                ?? throw new NotFoundException($"Workspace {workspaceId} is not found");
+    }
+
+    public async Task<PagedCollection<Workspace>> Get(WorkspaceFilteringParams filter, WorkspaceSorting sort)
+    {
+        var (items, totalCount) = await _workspaceRepository.Get(filter, sort);
+
+        return new PagedCollection<Workspace>(items, totalCount, filter.Page, filter.PageSize);
     }
 }

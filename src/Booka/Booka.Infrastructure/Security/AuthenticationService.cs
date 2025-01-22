@@ -1,5 +1,5 @@
 ﻿using Booka.Core.Domain;
-using Booka.Core.DTOs;
+using Booka.Core.DTOs.Security;
 using Booka.Core.Exceptions;
 using Booka.Core.Interfaces.Repositories;
 using Booka.Core.Interfaces.Security;

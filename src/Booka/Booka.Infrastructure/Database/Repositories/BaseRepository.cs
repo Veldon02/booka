@@ -1,6 +1,7 @@
 ﻿using Booka.Core.Domain;
 using Booka.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Booka.Infrastructure.Database.Repositories;
 
@@ -45,5 +46,10 @@ public class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
     {
         dbSet.Update(entity);
         await _dbContext.SaveChangesAsync();
+    }
+
+    protected IQueryable<TEntity> ApplyPagination(IQueryable<TEntity> query, int page, int pageSize)
+    {
+        return query.Skip((page - 1) * pageSize).Take(pageSize);
     }
 }

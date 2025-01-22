@@ -2,7 +2,7 @@
 using Booka.BackOffice.ApiModels.Authentication;
 using Booka.BackOffice.ApiModels.Workspace;
 using Booka.Core.Domain;
-using Booka.Core.DTOs;
+using Booka.Core.DTOs.Security;
 
 namespace Booka.BackOffice.Mappers;
 
