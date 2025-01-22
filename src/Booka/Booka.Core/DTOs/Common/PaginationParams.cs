@@ -1,8 +1,12 @@
-﻿namespace Booka.Core.DTOs.Common;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Booka.Core.DTOs.Common;
 
 public class PaginationParams
 {
-    public int Page {get; set; }
+    [Range(1, int.MaxValue, ErrorMessage = "Page should be greater than 0")]
+    public int Page { get; set; } = 1;
 
-    public int PageSize { get; set; }
+    [Range(1, int.MaxValue, ErrorMessage = "PageSize should be greater than 0")]
+    public int PageSize { get; set; } = 25;
 }
