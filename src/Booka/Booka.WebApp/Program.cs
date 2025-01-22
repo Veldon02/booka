@@ -10,6 +10,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddRepositories();
 builder.Services.AddConfigurations(config);
+builder.Services.ConfigureOptions();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddControllersWithOptions();
