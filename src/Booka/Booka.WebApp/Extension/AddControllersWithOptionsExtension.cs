@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Text.Json.Serialization;
 
 namespace Booka.WebApp.Extension;
 
@@ -16,6 +17,9 @@ public static class AddControllersWithOptionsExtension
                 .Build();
 
             options.Filters.Add(new AuthorizeFilter(policy));
+        }).AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
     }
 }

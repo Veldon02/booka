@@ -20,5 +20,9 @@ public class WorkplaceConfiguration : IEntityTypeConfiguration<Workplace>
         // Relations
         builder.HasOne(x => x.Workspace)
                .WithMany(x => x.Workplaces);
+
+        // Indexes
+        builder.HasIndex(x => new { x.WorkspaceId, x.Number })
+               .IsUnique();
     }
 }

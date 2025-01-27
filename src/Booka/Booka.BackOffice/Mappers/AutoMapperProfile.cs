@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Booka.BackOffice.ApiModels.Authentication;
+using Booka.BackOffice.ApiModels.Workplace;
 using Booka.BackOffice.ApiModels.Workspace;
 using Booka.Core.Domain;
 using Booka.Core.DTOs.Security;
@@ -14,5 +15,7 @@ public class AutoMapperProfile : Profile
         CreateMap<UpdateWorkspaceRequest, Workspace>();
         CreateMap<Workspace, WorkspaceResponse>();
         CreateMap<LoginWorkspaceRequest, TokenRequestDto>();
+        CreateMap<CreateWorkplaceRequest, Workplace>();
+        CreateMap<Workplace, WorkplaceResponse>();
     }
 }
