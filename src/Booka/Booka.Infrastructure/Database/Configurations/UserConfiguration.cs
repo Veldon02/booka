@@ -26,6 +26,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                .HasForeignKey("UserId");
 
         // Indexes
-        builder.HasIndex(x => x.Email);
+        builder.HasIndex(x => x.Email)
+               .IsUnique();
     }
 }

@@ -27,5 +27,8 @@ public class WorkspaceConfiguration : IEntityTypeConfiguration<Workspace>
 
         // Indexes
         builder.HasIndex(x => x.Name);
+
+        builder.HasIndex(x => x.Email)
+               .IsUnique();
     }
 }
