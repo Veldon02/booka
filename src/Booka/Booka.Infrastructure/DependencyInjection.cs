@@ -1,6 +1,7 @@
 ﻿using Booka.Core.Interfaces.Security;
 using Booka.Infrastructure.Database;
 using Booka.Infrastructure.Security;
+using EntityFramework.Exceptions.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,8 @@ public static class DependencyInjection
     {
         services.AddDbContext<BookaDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("Database"));
+            options.UseSqlServer(configuration.GetConnectionString("Database"))
+                   .UseExceptionProcessor();
         });
 
         services.AddScoped<IJwtService, JwtService>();
