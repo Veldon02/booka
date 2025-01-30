@@ -2,5 +2,5 @@
 
 namespace Booka.Core.Exceptions;
 
-public class UnauthorizedException(string message)
+public class InvalidTokenException(string message)
     : ApplicationException(message, HttpStatusCode.Unauthorized);

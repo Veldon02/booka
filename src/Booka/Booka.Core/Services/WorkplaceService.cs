@@ -8,30 +8,50 @@ namespace Booka.Core.Services;
 public class WorkplaceService : IWorkplaceService
 {
     private readonly IWorkplaceRepository _workplaceRepository;
-    private readonly IWorkspaceService _workspaceService;
-    private readonly IWorkspaceRepository _workspaceRepository;
 
-    public WorkplaceService(IWorkplaceRepository workplaceRepository, IWorkspaceService workspaceService, IWorkspaceRepository workspaceRepository)
+    public WorkplaceService(IWorkplaceRepository workplaceRepository)
     {
         _workplaceRepository = workplaceRepository;
-        _workspaceService = workspaceService;
-        _workspaceRepository = workspaceRepository;
     }
 
     public async Task<List<Workplace>> GetByWorkspace(int workspaceId)
     {
-        await _workspaceService.GetByIdAsync(workspaceId);
-
         return await _workplaceRepository.GetByWorkspace(workspaceId);
     }
 
-    public async Task<Workplace> CreateWorkplace(int workspaceId, Workplace workplace)
+    public async Task<Workplace> Create(int workspaceId, Workplace workplace)
     {
-        var workspace = await _workspaceRepository.GetById(workspaceId, false)
-            ?? throw new NotFoundException($"Workspace {workspaceId} is not found");
-
-        workplace.Workspace = workspace;
+        workplace.WorkspaceId = workspaceId;
 
         return await _workplaceRepository.Add(workplace);
+    }
+
+    public async Task Update(int workspaceId, int workplaceId, Workplace workplace)
+    {
+        var existingWorkplace = await _workplaceRepository.GetById(workplaceId, false)
+            ?? throw new NotFoundException($"Workplace {workplaceId} is not found");
+
+        if (existingWorkplace.WorkspaceId != workspaceId)
+        {
+            throw new ForbiddenException($"You are not allowed to modify workplace {workplaceId}");
+        }
+
+        existingWorkplace.Number = workplace.Number;
+        existingWorkplace.Type = workplace.Type;
+
+        await _workplaceRepository.Update(existingWorkplace);
+    }
+
+    public async Task Delete(int workspaceId, int workplaceId)
+    {
+        var workplace = await _workplaceRepository.GetById(workplaceId)
+            ?? throw new NotFoundException($"Workplace {workplaceId} is not found");
+
+        if (workplace.WorkspaceId != workspaceId)
+        {
+            throw new ForbiddenException($"You are not allowed to delete workplace {workplaceId}");
+        }
+
+        await _workplaceRepository.Remove(workplace);
     }
 }

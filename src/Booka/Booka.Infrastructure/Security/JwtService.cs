@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Booka.Core.Exceptions;
 using Booka.Core.Interfaces.Security;
 using Booka.Infrastructure.Configuration;
 using Microsoft.Extensions.Options;
@@ -31,15 +32,10 @@ public class JwtService : IJwtService
 
         if (string.IsNullOrEmpty(token))
         {
-            throw new Exception("can not generate");
+            throw new InternalServerException("Token can not be generated");
         }
 
         return token;
-    }
-
-    public bool ValidateToken(string token, string secretKey)
-    {
-        throw new NotImplementedException();
     }
 
     private static IEnumerable<Claim> PrepareClaims(Dictionary<string, string> claims)
