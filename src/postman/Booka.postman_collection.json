@@ -1,0 +1,409 @@
+{
+	"info": {
+		"_postman_id": "b80b4fc8-ca89-4058-86e1-81b7b7917a20",
+		"name": "Booka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25316100"
+	},
+	"item": [
+		{
+			"name": "BackOffice",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BackofficeBaseUrl}}/auth/register",
+									"host": [
+										"{{BackofficeBaseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BackofficeBaseUrl}}/auth/login",
+									"host": [
+										"{{BackofficeBaseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Workspace",
+					"item": [
+						{
+							"name": "Get",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BackofficeBaseUrl}}/api/workspaces/12",
+									"host": [
+										"{{BackofficeBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"workspaces",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"new name\",\r\n  \"address\": \"new address\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BackofficeBaseUrl}}/api/workspaces/12",
+									"host": [
+										"{{BackofficeBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"workspaces",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get workplaces",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BackofficeBaseUrl}}/api/workspaces/12/workplaces",
+									"host": [
+										"{{BackofficeBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"workspaces",
+										"12",
+										"workplaces"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add workplace",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"number\": 99,\r\n  \"type\": \"IndividualTable\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BackofficeBaseUrl}}/api/workspaces/12/workplaces",
+									"host": [
+										"{{BackofficeBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"workspaces",
+										"12",
+										"workplaces"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update workplace",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"number\": 98,\r\n  \"type\": \"IndividualTable\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BackofficeBaseUrl}}/api/workspaces/12/workplaces/11",
+									"host": [
+										"{{BackofficeBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"workspaces",
+										"12",
+										"workplaces",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete workplace",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BackofficeBaseUrl}}/api/workspaces/12/workplaces/11",
+									"host": [
+										"{{BackofficeBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"workspaces",
+										"12",
+										"workplaces",
+										"11"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "This folder contains requests templates for Booka Backoffice API",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{BackofficeToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"var endpoint = pm.collectionVariables.get('BackofficeBaseUrl') + '/auth/login'\r",
+							"\r",
+							"var requestConfig = {\r",
+							"    method: 'POST',\r",
+							"    url: endpoint,\r",
+							"    header: 'Content-Type: application/json',\r",
+							"    body: {\r",
+							"        mode: 'raw',\r",
+							"        raw: JSON.stringify({\r",
+							"            \"email\": \"string\",\r",
+							"            \"password\": \"string\"\r",
+							"        })\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(requestConfig, function (err, response) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"    } else {\r",
+							"        if (response.code === 200) {\r",
+							"            var responseBody = response.json();\r",
+							"            var token = responseBody.token;\r",
+							"            pm.collectionVariables.set('BackofficeToken', token);\r",
+							"        } else {\r",
+							"            console.error('Failed to login. Response code:', response.code);\r",
+							"        }\r",
+							"    }\r",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Workspaces",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZW1haWwiOiJzdHJpbmciLCJqdGkiOiJlYWU5Mjc1Zi0yMDEyLTQ3ZGUtYmExYy0wZDRjOWVkMzc2MTUiLCJpYXQiOiIxNzM1NjYzMjEyIiwibmJmIjoxNzM1NjYyOTExLCJleHAiOjE3MzU2NjM4MTF9.0M8KoV8ur0JYs1ywHSrPqQemQLOmvR0cVxHg20rEzf0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7227/api/workspaces?Page=1&PageSize=5&search=&sort=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7227",
+					"path": [
+						"api",
+						"workspaces"
+					],
+					"query": [
+						{
+							"key": "Page",
+							"value": "1"
+						},
+						{
+							"key": "PageSize",
+							"value": "5"
+						},
+						{
+							"key": "search",
+							"value": ""
+						},
+						{
+							"key": "sort",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userEmail\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7227/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7227",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BackofficeBaseUrl",
+			"value": "https://localhost:7184",
+			"type": "string"
+		},
+		{
+			"key": "WebAppBaseUrl",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "BackofficeToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMiIsImVtYWlsIjoic3RyaW5nIiwianRpIjoiNGJlN2JkNzQtYWJlZi00YTJkLTljYmYtYTgwNzFkMzI5MTI0IiwiaWF0IjoiMTczNzk4NjU5OSIsIm5iZiI6MTczNzk4NjI5OCwiZXhwIjoxNzM3OTg3MTk4fQ.CYptl_NttScRjH5O8RZMgV8U6OdfGpFmH1nW5u0MtnU",
+			"type": "string"
+		}
+	]
+}
