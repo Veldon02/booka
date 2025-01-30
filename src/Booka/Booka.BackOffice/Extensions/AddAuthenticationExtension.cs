@@ -26,6 +26,7 @@ public static class AddAuthenticationExtension
             {
                 options.TokenValidationParameters = tokenValidationParameters;
                 options.EventsType = typeof(CustomJwtBearerEvents);
+                options.MapInboundClaims = false;
             });
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Booka.BackOffice.ApiModels.Workplace;
 using Booka.BackOffice.ApiModels.Workspace;
+using Booka.BackOffice.Filters.Attributes;
 using Booka.Core.Domain;
 using Booka.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Booka.BackOffice.Controller;
 
 [Route("api/workspaces")]
+[OnlyLoggedWorkspace]
 public class WorkspaceController : BaseController
 {
     private readonly IWorkspaceService _workspaceService;
@@ -23,17 +25,17 @@ public class WorkspaceController : BaseController
 
     #region Workspace
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<WorkspaceResponse>> GetById(int id)
+    [HttpGet("{workspaceId}")]
+    public async Task<ActionResult<WorkspaceResponse>> GetById(int workspaceId)
     {
-        var result = await _workspaceService.GetByIdAsync(id);
+        var result = await _workspaceService.GetByIdAsync(workspaceId);
         return Ok(_mapper.Map<WorkspaceResponse>(result));
     }
 
-    [HttpPut("{id}")]
-    public async Task<ActionResult<WorkspaceResponse>> Update(int id, UpdateWorkspaceRequest request)
+    [HttpPut("{workspaceId}")]
+    public async Task<ActionResult<WorkspaceResponse>> Update(int workspaceId, UpdateWorkspaceRequest request)
     {
-        await _workspaceService.UpdateAsync(id, _mapper.Map<Workspace>(request));
+        await _workspaceService.UpdateAsync(workspaceId, _mapper.Map<Workspace>(request));
         return Ok();
     }
 
@@ -52,9 +54,27 @@ public class WorkspaceController : BaseController
     [HttpPost("{workspaceId}/workplaces")]
     public async Task<ActionResult<WorkplaceResponse>> CreateWorkplace(int workspaceId, CreateWorkplaceRequest request)
     {
-        var result = await _workplaceService.CreateWorkplace(workspaceId, _mapper.Map<Workplace>(request));
+        var result = await _workplaceService.Create(workspaceId, _mapper.Map<Workplace>(request));
 
         return Ok(_mapper.Map<WorkplaceResponse>(result));
+    }
+
+
+    [HttpPut("{workspaceId}/workplaces/{workplaceId}")]
+    public async Task<ActionResult<WorkplaceResponse>> UpdateWorkplace(int workspaceId, int workplaceId, UpdateWorkplaceRequest request)
+    {
+        await _workplaceService.Update(workspaceId, workplaceId, _mapper.Map<Workplace>(request));
+
+        return NoContent();
+    }
+
+
+    [HttpDelete("{workspaceId}/workplaces/{workplaceId}")]
+    public async Task<ActionResult<WorkplaceResponse>> DeleteWorkplace(int workspaceId, int workplaceId)
+    {
+        await _workplaceService.Delete(workspaceId, workplaceId);
+
+        return Ok();
     }
 
     #endregion

@@ -16,6 +16,7 @@ public class AutoMapperProfile : Profile
         CreateMap<Workspace, WorkspaceResponse>();
         CreateMap<LoginWorkspaceRequest, TokenRequestDto>();
         CreateMap<CreateWorkplaceRequest, Workplace>();
+        CreateMap<UpdateWorkplaceRequest, Workplace>();
         CreateMap<Workplace, WorkplaceResponse>();
     }
 }

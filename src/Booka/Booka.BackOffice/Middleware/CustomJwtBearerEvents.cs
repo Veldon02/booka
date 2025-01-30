@@ -29,7 +29,7 @@ public class CustomJwtBearerEvents : JwtBearerEvents
     {
         if (!context.HttpContext.Request.Headers.ContainsKey("Authorization"))
         {
-            return Task.FromException(new UnauthorizedException("Token is not found"));
+            return Task.FromException(new InvalidTokenException("Token is not found"));
         }
 
         return Task.FromResult(0);
@@ -46,16 +46,16 @@ public class CustomJwtBearerEvents : JwtBearerEvents
             throw new NotFoundException($"Invalid user : unable to parse id ({jwtToken?.Subject})");
         }
 
-        var user = await workspaceRepository.GetById(intId);
+        var workspace = await workspaceRepository.GetById(intId);
 
-        if (jwtToken == null || user == null)
+        if (jwtToken == null || workspace == null)
         {
-            throw new UnauthorizedException($"Invalid user ({jwtToken?.Subject})");
+            throw new InvalidTokenException($"Invalid user ({jwtToken?.Subject})");
         }
 
-        if (user.UpdateDate.HasValue && user.UpdateDate.Value > jwtToken.IssuedAt)
+        if (workspace.UpdateDate.HasValue && workspace.UpdateDate.Value > jwtToken.IssuedAt)
         {
-            throw new UnauthorizedException($"User data has been updated ({jwtToken?.Subject})");
+            throw new InvalidTokenException($"Workspace data has been updated ({jwtToken?.Subject})");
         }
     }
 
@@ -63,8 +63,8 @@ public class CustomJwtBearerEvents : JwtBearerEvents
     {
         return context.Exception switch
         {
-            SecurityTokenExpiredException => Task.FromException(new UnauthorizedException("Token is expired")),
-            SecurityTokenValidationException => Task.FromException(new UnauthorizedException("Token is invalid")),
+            SecurityTokenExpiredException => Task.FromException(new InvalidTokenException("Token is expired")),
+            SecurityTokenValidationException => Task.FromException(new InvalidTokenException("Token is invalid")),
             _ => Task.FromResult(0)
         };
     }
