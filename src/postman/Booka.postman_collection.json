@@ -19,7 +19,13 @@
 									"type": "noauth"
 								},
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "test",
+										"value": "",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n  \"email\": \"string\",\r\n  \"password\": \"string\"\r\n}",
@@ -30,11 +36,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{BackofficeBaseUrl}}/auth/register",
+									"raw": "{{BackofficeBaseUrl}}/api/auth/register",
 									"host": [
 										"{{BackofficeBaseUrl}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"register"
 									]
@@ -60,11 +67,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{BackofficeBaseUrl}}/auth/login",
+									"raw": "{{BackofficeBaseUrl}}/api/auth/login",
 									"host": [
 										"{{BackofficeBaseUrl}}"
 									],
 									"path": [
+										"api",
 										"auth",
 										"login"
 									]
@@ -245,7 +253,7 @@
 						"type": "text/javascript",
 						"packages": {},
 						"exec": [
-							"var endpoint = pm.collectionVariables.get('BackofficeBaseUrl') + '/auth/login'\r",
+							"var endpoint = pm.collectionVariables.get('BackofficeBaseUrl') + '/api/auth/login'\r",
 							"\r",
 							"var requestConfig = {\r",
 							"    method: 'POST',\r",
@@ -259,6 +267,8 @@
 							"        })\r",
 							"    }\r",
 							"};\r",
+							"\r",
+							"pm.collectionVariables.set('BackofficeToken', null)\r",
 							"\r",
 							"pm.sendRequest(requestConfig, function (err, response) {\r",
 							"    if (err) {\r",
@@ -289,82 +299,297 @@
 			]
 		},
 		{
-			"name": "Workspaces",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+			"name": "WebApp",
+			"item": [
+				{
+					"name": "Workspace",
+					"item": [
 						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZW1haWwiOiJzdHJpbmciLCJqdGkiOiJlYWU5Mjc1Zi0yMDEyLTQ3ZGUtYmExYy0wZDRjOWVkMzc2MTUiLCJpYXQiOiIxNzM1NjYzMjEyIiwibmJmIjoxNzM1NjYyOTExLCJleHAiOjE3MzU2NjM4MTF9.0M8KoV8ur0JYs1ywHSrPqQemQLOmvR0cVxHg20rEzf0",
-							"type": "string"
+							"name": "Get workspaces",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WebAppBaseUrl}}/api/workspaces",
+									"host": [
+										"{{WebAppBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"workspaces"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get workplaces",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WebAppBaseUrl}}/api/workspaces/12/workplaces",
+									"host": [
+										"{{WebAppBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"workspaces",
+										"12",
+										"workplaces"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:7227/api/workspaces?Page=1&PageSize=5&search=&sort=1",
-					"protocol": "https",
-					"host": [
-						"localhost"
+				{
+					"name": "Booking",
+					"item": [
+						{
+							"name": "Get user bookings",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{WebAppBaseUrl}}/api/users/4/bookings",
+									"host": [
+										"{{WebAppBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"4",
+										"bookings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Book workplace",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"workplaceId\": 15,\r\n  \"bookDate\": \"2025-02-16T17:13:49.524Z\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WebAppBaseUrl}}/api/bookings",
+									"host": [
+										"{{WebAppBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"bookings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check in",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{WebAppBaseUrl}}/api/bookings/2/check-in",
+									"host": [
+										"{{WebAppBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"2",
+										"check-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{WebAppBaseUrl}}/api/bookings/2/cancel",
+									"host": [
+										"{{WebAppBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"2",
+										"cancel"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userEmail\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WebAppBaseUrl}}/api/auth/login",
+									"host": [
+										"{{WebAppBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userEmail\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{WebAppBaseUrl}}/api/auth/login",
+									"host": [
+										"{{WebAppBaseUrl}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
 					],
-					"port": "7227",
-					"path": [
-						"api",
-						"workspaces"
-					],
-					"query": [
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
 						{
-							"key": "Page",
-							"value": "1"
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
 						},
 						{
-							"key": "PageSize",
-							"value": "5"
-						},
-						{
-							"key": "search",
-							"value": ""
-						},
-						{
-							"key": "sort",
-							"value": "1"
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
 						}
 					]
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{WebAppToken}}",
+						"type": "string"
+					}
+				]
 			},
-			"response": []
-		},
-		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"userEmail\": \"string\",\r\n  \"password\": \"string\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"var endpoint = pm.collectionVariables.get('WebAppBaseUrl') + '/api/auth/login'\r",
+							"\r",
+							"var requestConfig = {\r",
+							"    method: 'POST',\r",
+							"    url: endpoint,\r",
+							"    header: 'Content-Type: application/json',\r",
+							"    body: {\r",
+							"        mode: 'raw',\r",
+							"        raw: JSON.stringify({\r",
+							"            \"userEmail\": \"string\",\r",
+							"            \"password\": \"string\"\r",
+							"        })\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.collectionVariables.set('WebAppToken', null)\r",
+							"\r",
+							"pm.sendRequest(requestConfig, function (err, response) {\r",
+							"    if (err) {\r",
+							"        console.error(err);\r",
+							"    } else {\r",
+							"        if (response.code === 200) {\r",
+							"            var responseBody = response.json();\r",
+							"            var token = responseBody.token;\r",
+							"            pm.collectionVariables.set('WebAppToken', token);\r",
+							"        } else {\r",
+							"            console.error('Failed to login. Response code:', response.code);\r",
+							"        }\r",
+							"    }\r",
+							"});"
+						]
 					}
 				},
-				"url": {
-					"raw": "https://localhost:7227/api/auth/login",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7227",
-					"path": [
-						"api",
-						"auth",
-						"login"
-					]
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [
@@ -396,13 +621,18 @@
 			"type": "string"
 		},
 		{
-			"key": "WebAppBaseUrl",
+			"key": "BackofficeToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"key": "BackofficeToken",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMiIsImVtYWlsIjoic3RyaW5nIiwianRpIjoiNGJlN2JkNzQtYWJlZi00YTJkLTljYmYtYTgwNzFkMzI5MTI0IiwiaWF0IjoiMTczNzk4NjU5OSIsIm5iZiI6MTczNzk4NjI5OCwiZXhwIjoxNzM3OTg3MTk4fQ.CYptl_NttScRjH5O8RZMgV8U6OdfGpFmH1nW5u0MtnU",
+			"key": "WebAppBaseUrl",
+			"value": "https://localhost:7227",
+			"type": "string"
+		},
+		{
+			"key": "WebAppToken",
+			"value": "",
 			"type": "string"
 		}
 	]
