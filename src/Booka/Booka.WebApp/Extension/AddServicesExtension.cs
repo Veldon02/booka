@@ -12,5 +12,7 @@ public static class AddServicesExtension
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IWorkspaceService, WorkspaceService>();
+        services.AddScoped<IWorkplaceService, WorkplaceService>();
+        services.AddScoped<IBookingService, BookingService>();
     }
 }

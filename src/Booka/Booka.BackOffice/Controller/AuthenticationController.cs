@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Booka.BackOffice.Controller;
 
-[Route("auth")]
+[Route("api/auth")]
 public class AuthenticationController : BaseController
 {
     private readonly IAuthenticationService _authenticationService;

@@ -10,22 +10,14 @@ public class OnlyLoggedWorkspaceFilter : IAsyncActionFilter
     {
         var stringId = context.RouteData.Values["workspaceId"]?.ToString();
 
-        if (!int.TryParse(stringId, out var requestedWorkspaceId))
+        if (!int.TryParse(stringId, out var requestedWorkspaceId) || requestedWorkspaceId <= 0)
         {
-            throw new InvalidParametersException("Invalid workspace");
+            throw new InvalidParametersException("Invalid workspace id");
         }
 
-        var workspaceClaim = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type is JwtRegisteredClaimNames.Sub);
+        var workspaceClaim = context.HttpContext.User.Claims.First(x => x.Type is JwtRegisteredClaimNames.Sub);
 
-        if (workspaceClaim == null)
-        {
-            throw new InvalidTokenException("Invalid token");
-        }
-
-        if (!int.TryParse(workspaceClaim.Value, out var loggedWorkspaceId))
-        {
-            throw new InvalidParametersException("Invalid workspace");
-        }
+        var loggedWorkspaceId = int.Parse(workspaceClaim.Value);
 
         if (requestedWorkspaceId != loggedWorkspaceId)
         {
