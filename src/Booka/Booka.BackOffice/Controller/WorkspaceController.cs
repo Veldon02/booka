@@ -59,7 +59,7 @@ public class WorkspaceController : BaseController
         return Ok(_mapper.Map<WorkplaceResponse>(result));
     }
 
-
+    // TODO remove workspace from the route and take from the token
     [HttpPut("{workspaceId}/workplaces/{workplaceId}")]
     public async Task<ActionResult<WorkplaceResponse>> UpdateWorkplace(int workspaceId, int workplaceId, UpdateWorkplaceRequest request)
     {

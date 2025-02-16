@@ -12,12 +12,14 @@ namespace Booka.WebApp.Controllers;
 public class WorkspaceController : BaseController
 {
     private readonly IWorkspaceService _workspaceService;
+    private readonly IWorkplaceService _workplaceService;
     private readonly IMapper _mapper;
 
-    public WorkspaceController(IWorkspaceService workspaceService, IMapper mapper)
+    public WorkspaceController(IWorkspaceService workspaceService, IMapper mapper, IWorkplaceService workplaceService)
     {
         _workspaceService = workspaceService;
         _mapper = mapper;
+        _workplaceService = workplaceService;
     }
 
     [HttpGet]
@@ -30,5 +32,15 @@ public class WorkspaceController : BaseController
         var list = _mapper.Map<List<WorkspaceResponse>>(result.Items);
 
         return Ok(new PagedResponse<WorkspaceResponse>(list, result.Page, result.PageSize, result.TotalCount));
+    }
+
+    [HttpGet("{workspaceId}/workplaces")]
+    public async Task<ActionResult<List<WorkplaceResponse>>> GetWorkplaces(int workspaceId)
+    {
+        var workspace = await _workspaceService.GetByIdAsync(workspaceId);
+
+        var result = await _workplaceService.GetWithBookingsByWorkspace(workspace.Id);
+
+        return Ok(_mapper.Map<List<WorkplaceResponse>>(result));
     }
 }

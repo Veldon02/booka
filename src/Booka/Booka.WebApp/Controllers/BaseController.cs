@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Booka.WebApp.Controllers;
 
@@ -6,4 +7,6 @@ namespace Booka.WebApp.Controllers;
 [Route("api")]
 public class BaseController : ControllerBase
 {
+    public int CurrentUserId =>
+        int.Parse(HttpContext.User.Claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value);
 }

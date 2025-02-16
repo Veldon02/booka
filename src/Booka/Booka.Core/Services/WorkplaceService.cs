@@ -19,6 +19,11 @@ public class WorkplaceService : IWorkplaceService
         return await _workplaceRepository.GetByWorkspace(workspaceId);
     }
 
+    public async Task<List<Workplace>> GetWithBookingsByWorkspace(int workspaceId)
+    {
+        return await _workplaceRepository.GetWithBookingsByWorkspace(workspaceId);
+    }
+
     public async Task<Workplace> Create(int workspaceId, Workplace workplace)
     {
         workplace.WorkspaceId = workspaceId;

@@ -9,5 +9,7 @@ public static class AddRepositoriesExtension
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
+        services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
+        services.AddScoped<IBookingRepository, BookingRepository>();
     }
 }

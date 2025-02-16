@@ -48,8 +48,19 @@ public class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
         await _dbContext.SaveChangesAsync();
     }
 
-    protected IQueryable<TEntity> ApplyPagination(IQueryable<TEntity> query, int page, int pageSize)
+    protected static IQueryable<TEntity> ApplyPagination(IQueryable<TEntity> query, int page, int pageSize)
     {
         return query.Skip((page - 1) * pageSize).Take(pageSize);
+    }
+
+    protected static async Task<(List<TEntity>, int)> FetchWithPagination(IQueryable<TEntity> query, int page, int pageSize)
+    {
+        var totalCount = await query.CountAsync();
+
+        query = ApplyPagination(query, page, pageSize);
+
+        var items = await query.ToListAsync();
+
+        return (items, totalCount);
     }
 }
