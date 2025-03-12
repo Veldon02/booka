@@ -8,10 +8,12 @@ namespace Booka.Core.Services;
 public class WorkplaceService : IWorkplaceService
 {
     private readonly IWorkplaceRepository _workplaceRepository;
+    private readonly IQrCodeGeneratorService _qrCodeGeneratorService;
 
-    public WorkplaceService(IWorkplaceRepository workplaceRepository)
+    public WorkplaceService(IWorkplaceRepository workplaceRepository, IQrCodeGeneratorService qrCodeGeneratorService)
     {
         _workplaceRepository = workplaceRepository;
+        _qrCodeGeneratorService = qrCodeGeneratorService;
     }
 
     public async Task<List<Workplace>> GetByWorkspace(int workspaceId)
@@ -58,5 +60,18 @@ public class WorkplaceService : IWorkplaceService
         }
 
         await _workplaceRepository.Remove(workplace);
+    }
+
+    public async Task<Stream> GenerateCode(int workspaceId, int workplaceId)
+    {
+        var workplace = await _workplaceRepository.GetById(workplaceId)
+            ?? throw new NotFoundException($"Workplace {workplaceId} is not found");
+
+        if (workplace.WorkspaceId != workspaceId)
+        {
+            throw new ForbiddenException($"You are not allowed to delete workplace {workplaceId}");
+        }
+
+        return _qrCodeGeneratorService.GenerateWorkplaceBook(workplaceId);
     }
 }

@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using Booka.Core.Domain;
-using Booka.Core.DTOs.Common;
 using Booka.Core.Interfaces.Services;
 using Booka.WebApp.ApiModels.Booking;
-using Booka.WebApp.ApiModels.Common;
 using Booka.WebApp.Filters.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +30,14 @@ public class BookingController : BaseController
     public async Task<ActionResult<BookingResponse>> Create(CreateBookingRequest request)
     {
         var result = await _bookingService.Create(request.ToDomain(CurrentUserId));
+
+        return Ok(_mapper.Map<BookingResponse>(result));
+    }
+
+    [HttpPost("workplaces/{workplaceId}/qr-scan")]
+    public async Task<ActionResult<BookingResponse>> Book(int workplaceId)
+    {
+        var result = await _bookingService.QrScan(CurrentUserId, workplaceId);
 
         return Ok(_mapper.Map<BookingResponse>(result));
     }

@@ -9,6 +9,8 @@ public interface IBookingService
 
     Task<Booking> Create(Booking booking);
 
+    Task<Booking> QrScan(int userId, int workplaceId);
+
     Task CheckIn(int userId, int bookingId);
 
     Task Cancel(int userId, int bookingId);

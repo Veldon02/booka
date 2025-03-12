@@ -1,6 +1,7 @@
 ﻿using Booka.Core.Interfaces.Security;
 using Booka.Core.Interfaces.Services;
 using Booka.Core.Services;
+using Booka.Infrastructure.QrCodes;
 using Booka.Infrastructure.Security;
 
 namespace Booka.BackOffice.Extensions;
@@ -12,5 +13,6 @@ public static class AddServicesExtension
         services.AddScoped<IWorkspaceService, WorkspaceService>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IWorkplaceService, WorkplaceService>();
+        services.AddScoped<IQrCodeGeneratorService, QrCodeGeneratorService>();
     }
 }

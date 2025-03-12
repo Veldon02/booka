@@ -1,5 +1,4 @@
 ﻿using Booka.Core.Domain;
-using Booka.Core.DTOs.Common;
 using Booka.Core.Exceptions;
 using Booka.Core.Interfaces.Repositories;
 using Booka.Core.Interfaces.Services;
@@ -51,6 +50,34 @@ public class BookingService : IBookingService
         result.Workplace = workplace;
 
         return result;
+    }
+
+    public async Task<Booking> QrScan(int userId, int workplaceId)
+    {
+        var workplace = await _workplaceRepository.GetById(workplaceId)
+                        ?? throw new NotFoundException($"Workplace {workplaceId} is not found");
+
+        var userBookings = await _bookingRepository.GetByUserAndWorkplace(userId, workplaceId);
+
+        var booking = userBookings.FirstOrDefault(x => x.BookDate.Date == DateTime.UtcNow.Date);
+
+        if (booking is not null)
+        {
+            await CheckIn(userId, booking.Id);
+
+            booking.Workplace = workplace;
+            return booking;
+        }
+
+        booking = new Booking
+        {
+            BookDate = DateTime.UtcNow,
+            CheckInDate = DateTime.UtcNow,
+            WorkplaceId = workplaceId,
+            UserId = userId,
+        };
+
+        return await Create(booking);
     }
 
     public async Task CheckIn(int userId, int bookingId)

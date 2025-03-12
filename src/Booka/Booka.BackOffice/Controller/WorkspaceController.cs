@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Booka.BackOffice.Controller;
 
 [Route("api/workspaces")]
-[OnlyLoggedWorkspace]
 public class WorkspaceController : BaseController
 {
     private readonly IWorkspaceService _workspaceService;
@@ -25,6 +24,7 @@ public class WorkspaceController : BaseController
 
     #region Workspace
 
+    [OnlyLoggedWorkspace]
     [HttpGet("{workspaceId}")]
     public async Task<ActionResult<WorkspaceResponse>> GetById(int workspaceId)
     {
@@ -32,6 +32,7 @@ public class WorkspaceController : BaseController
         return Ok(_mapper.Map<WorkspaceResponse>(result));
     }
 
+    [OnlyLoggedWorkspace]
     [HttpPut("{workspaceId}")]
     public async Task<ActionResult<WorkspaceResponse>> Update(int workspaceId, UpdateWorkspaceRequest request)
     {
@@ -43,6 +44,7 @@ public class WorkspaceController : BaseController
 
     #region Workplace
 
+    [OnlyLoggedWorkspace]
     [HttpGet("{workspaceId}/workplaces")]
     public async Task<ActionResult<WorkplaceResponse>> GetWorkplaces(int workspaceId)
     {
@@ -51,6 +53,7 @@ public class WorkspaceController : BaseController
         return Ok(_mapper.Map<List<WorkplaceResponse>>(result));
     }
 
+    [OnlyLoggedWorkspace]
     [HttpPost("{workspaceId}/workplaces")]
     public async Task<ActionResult<WorkplaceResponse>> CreateWorkplace(int workspaceId, CreateWorkplaceRequest request)
     {
@@ -59,22 +62,28 @@ public class WorkspaceController : BaseController
         return Ok(_mapper.Map<WorkplaceResponse>(result));
     }
 
-    // TODO remove workspace from the route and take from the token
-    [HttpPut("{workspaceId}/workplaces/{workplaceId}")]
-    public async Task<ActionResult<WorkplaceResponse>> UpdateWorkplace(int workspaceId, int workplaceId, UpdateWorkplaceRequest request)
+    [HttpPut("/api/workplaces/{workplaceId}")]
+    public async Task<ActionResult<WorkplaceResponse>> UpdateWorkplace(int workplaceId, UpdateWorkplaceRequest request)
     {
-        await _workplaceService.Update(workspaceId, workplaceId, _mapper.Map<Workplace>(request));
+        await _workplaceService.Update(CurrentUserId, workplaceId, _mapper.Map<Workplace>(request));
 
         return NoContent();
     }
 
-
-    [HttpDelete("{workspaceId}/workplaces/{workplaceId}")]
-    public async Task<ActionResult<WorkplaceResponse>> DeleteWorkplace(int workspaceId, int workplaceId)
+    [HttpDelete("/api/workplaces/{workplaceId}")]
+    public async Task<ActionResult<WorkplaceResponse>> DeleteWorkplace(int workplaceId)
     {
-        await _workplaceService.Delete(workspaceId, workplaceId);
+        await _workplaceService.Delete(CurrentUserId, workplaceId);
 
         return Ok();
+    }
+
+    [HttpGet("/api/workplaces/{workplaceId}/generate-qr")]
+    public async Task<ActionResult> GenerateCode(int workplaceId)
+    {
+        var qrCode = await _workplaceService.GenerateCode(CurrentUserId, workplaceId);
+
+        return File(qrCode, "image/png", $"qr-workplace-{workplaceId}.png");
     }
 
     #endregion
