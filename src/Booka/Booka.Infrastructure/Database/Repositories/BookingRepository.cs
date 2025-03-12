@@ -21,4 +21,15 @@ public class BookingRepository : BaseRepository<Booking, int>, IBookingRepositor
 
         return await query.ToListAsync();
     }
+
+    public async Task<List<Booking>> GetByUserAndWorkplace(int userId, int workplaceId)
+    {
+        var query = dbSet.Where(x => x.UserId == userId && x.WorkplaceId == workplaceId);
+
+        // For now we do this filtering here, to avoid fetching old bookings.
+        // This should be implemented on DB lvl to cleanup such bookings 
+        query = query.Where(x => x.BookDate > DateTime.UtcNow.AddDays(-1));
+
+        return await query.ToListAsync();
+    }
 }

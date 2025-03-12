@@ -13,4 +13,6 @@ public interface IWorkplaceService
     Task Update(int workspaceId, int workplaceId, Workplace workplace);
 
     Task Delete(int workspaceId, int workplaceId);
+
+    Task<Stream> GenerateCode(int workspaceId, int workplaceId);
 }
