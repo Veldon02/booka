@@ -33,10 +33,10 @@ public class WorkspaceController : BaseController
     }
 
     [OnlyLoggedWorkspace]
-    [HttpPut("{workspaceId}")]
+    [HttpPatch("{workspaceId}")]
     public async Task<ActionResult<WorkspaceResponse>> Update(int workspaceId, UpdateWorkspaceRequest request)
     {
-        await _workspaceService.UpdateAsync(workspaceId, _mapper.Map<Workspace>(request));
+        await _workspaceService.UpdateAsync(workspaceId, request.ToDto());
         return Ok();
     }
 

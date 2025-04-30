@@ -29,15 +29,27 @@ public class WorkspaceService : IWorkspaceService
         return await _workspaceRepository.GetAll();
     }
 
-    public async Task UpdateAsync(int workspaceId, Workspace workspace)
+    public async Task UpdateAsync(int workspaceId, WorkspaceDto workspaceDto)
     {
-        var existingWorkspace = await _workspaceRepository.GetById(workspaceId, false)
+        var workspace = await _workspaceRepository.GetById(workspaceId, false)
                                 ?? throw new NotFoundException($"Workspace {workspaceId} is not found");
 
-        existingWorkspace.Name = workspace.Name;
-        existingWorkspace.Address = workspace.Address;
+        if (!string.IsNullOrWhiteSpace(workspaceDto.Name))
+        {
+            workspace.Name = workspaceDto.Name;
+        }
+
+        if (!string.IsNullOrWhiteSpace(workspaceDto.Address))
+        {
+            workspace.Address = workspaceDto.Address;
+        }
+
+        if (workspaceDto.Tags is not null)
+        {
+            workspace.Tags = workspaceDto.Tags;
+        }
         
-        await _workspaceRepository.Update(existingWorkspace);
+        await _workspaceRepository.Update(workspace);
     }
 
     public async Task<Workspace> GetByIdAsync(int workspaceId)
@@ -46,7 +58,7 @@ public class WorkspaceService : IWorkspaceService
                ?? throw new NotFoundException($"Workspace {workspaceId} is not found");
     }
 
-    public async Task<PagedCollection<Workspace>> Get(WorkspaceFilteringParams filter, WorkspaceSorting sort)
+    public async Task<PagedCollection<Workspace>> Get(WorkspaceFilteringParamsDto filter, WorkspaceSorting sort)
     {
         var (items, totalCount) = await _workspaceRepository.Get(filter, sort);
 

@@ -11,9 +11,9 @@ public  interface IWorkspaceService
 
     Task<List<Workspace>> GetAllAsync();
 
-    Task UpdateAsync(int workspaceId, Workspace workspace);
+    Task UpdateAsync(int workspaceId, WorkspaceDto workspaceDto);
 
     Task<Workspace> GetByIdAsync(int workspaceId);
 
-    Task<PagedCollection<Workspace>> Get(WorkspaceFilteringParams filter, WorkspaceSorting sort);
+    Task<PagedCollection<Workspace>> Get(WorkspaceFilteringParamsDto filter, WorkspaceSorting sort);
 }

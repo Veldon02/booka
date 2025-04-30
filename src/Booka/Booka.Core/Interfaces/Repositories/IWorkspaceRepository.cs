@@ -8,5 +8,5 @@ public interface IWorkspaceRepository : IBaseRepository<Workspace, int>
 {
     Task<Workspace?> GetByEmail(string email, bool asNoTracking = true);
 
-    Task<(List<Workspace>, int)> Get(WorkspaceFilteringParams filter, WorkspaceSorting sort);
+    Task<(List<Workspace>, int)> Get(WorkspaceFilteringParamsDto filter, WorkspaceSorting sort);
 }
