@@ -27,7 +27,7 @@ public class WorkspaceController : BaseController
         [FromQuery] WorkspaceFilteringParams filter,
         [FromQuery] WorkspaceSorting sort = WorkspaceSorting.NAME_ASC)
     {
-        var result = await _workspaceService.Get(filter, sort);
+        var result = await _workspaceService.Get(filter.ToDto(), sort);
 
         var list = _mapper.Map<List<WorkspaceResponse>>(result.Items);
 

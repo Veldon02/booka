@@ -1,4 +1,6 @@
-﻿namespace Booka.Core.Domain;
+﻿using Booka.Core.Domain.enums.Workspace;
+
+namespace Booka.Core.Domain;
 
 public class Workspace : BaseEntity<int>
 {
@@ -9,6 +11,8 @@ public class Workspace : BaseEntity<int>
     public string Email { get; set; }
 
     public string Password { get; set; }
+
+    public IList<WorkspaceTag> Tags { get; set; }
 
     public IList<Workplace> Workplaces { get; set; }
 }

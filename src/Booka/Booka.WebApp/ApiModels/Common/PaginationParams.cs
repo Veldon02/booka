@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Booka.Core.DTOs.Common;
+namespace Booka.WebApp.ApiModels.Common;
 
 public class PaginationParams
 {

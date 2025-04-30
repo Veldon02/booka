@@ -1,4 +1,6 @@
-﻿namespace Booka.BackOffice.ApiModels.Workspace;
+﻿using Booka.Core.Domain.enums.Workspace;
+
+namespace Booka.BackOffice.ApiModels.Workspace;
 
 public class WorkspaceResponse
 {
@@ -7,6 +9,8 @@ public class WorkspaceResponse
     public string Name { get; set; }
 
     public string Address { get; set; }
+
+    public List<WorkspaceTag> Tags { get; set; }
 
     public string Email { get; set; }
 }

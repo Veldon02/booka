@@ -1,4 +1,6 @@
-﻿namespace Booka.WebApp.ApiModels.Workspace;
+﻿using Booka.Core.Domain.enums.Workspace;
+
+namespace Booka.WebApp.ApiModels.Workspace;
 
 public class WorkspaceResponse
 {
@@ -7,4 +9,6 @@ public class WorkspaceResponse
     public string Name { get; set; }
 
     public string Address { get; set; }
+
+    public List<WorkspaceTag> Tags { get; set; }
 }

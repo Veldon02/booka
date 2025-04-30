@@ -25,13 +25,18 @@ public class WorkspaceRepository : BaseRepository<Workspace, int>, IWorkspaceRep
         return await query.FirstOrDefaultAsync(x => x.Email == email);
     }
 
-    public async Task<(List<Workspace>, int)> Get(WorkspaceFilteringParams filter, WorkspaceSorting sort)
+    public async Task<(List<Workspace>, int)> Get(WorkspaceFilteringParamsDto filter, WorkspaceSorting sort)
     {
         var query = dbSet.AsNoTracking();
 
         if (!string.IsNullOrEmpty(filter.Search))
         {
             query = query.Where(x => x.Name.Contains(filter.Search));
+        }
+
+        if (filter.Tags.Count > 0)
+        {
+            query = query.Where(x => filter.Tags.All(tag => x.Tags.Contains(tag)));
         }
 
         query = sort switch
