@@ -24,7 +24,12 @@ public class UserRepository : BaseRepository<User, int>, IUserRepository
 
     public async Task<User> Add(User entity)
     {
-        entity.Password = _hasher.Hash(entity.Password);
+        // only for common users
+        if (entity.Password is not null)
+        {
+            entity.Password = _hasher.Hash(entity.Password);
+        }
+        
         return await base.Add(entity);
     }
 }

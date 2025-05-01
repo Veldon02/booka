@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Booka.WebApp.Middleware;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -22,6 +23,13 @@ public static class AddAuthenticationExtension
         services.AddScoped<CustomJwtBearerEvents>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddCookie()
+            .AddGoogle(options =>
+            {
+                options.ClientId = config["GoogleConfig:ClientId"];
+                options.ClientSecret = config["GoogleConfig:ClientSecret"];
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = tokenValidationParameters;
