@@ -1,4 +1,6 @@
-﻿using Booka.Core.Domain;
+﻿using System.Security.Claims;
+using Booka.Core.Domain;
+using Booka.Core.Domain.enums.Auth;
 using Booka.Core.DTOs.Security;
 using Booka.Core.Exceptions;
 using Booka.Core.Interfaces.Repositories;
@@ -26,9 +28,14 @@ public class AuthenticationService : IAuthenticationService
     {
         var user = await _userRepository.GetByEmail(tokenRequestDto.Email);
 
-        var verified = _hasher.Verify(user?.Password, tokenRequestDto.Password);
+        if (user?.Password is null)
+        {
+            throw new NotFoundException($"User {tokenRequestDto.Email} not found");
+        }
 
-        if (user is null || !verified)
+        var verified = _hasher.Verify(user.Password, tokenRequestDto.Password);
+
+        if (!verified)
         {
             throw new InvalidParametersException("email or password is invalid");
         }
@@ -47,6 +54,48 @@ public class AuthenticationService : IAuthenticationService
         var token = _jwtService.GenerateToken(claims);
 
         return new UserAuthenticationResult { Token = token, User = user.Id };
+    }
+
+    public async Task<UserAuthenticationResult> HandleGoogleUser(ClaimsPrincipal principal, AuthType authType)
+    {
+        return authType switch
+        {
+            AuthType.Login => await LoginGoogleUser(principal),
+            AuthType.Register => await RegisterGoogleUser(principal),
+            _ => throw new InvalidParametersException("Invalid authentication type")
+        };
+    }
+
+    private async Task<UserAuthenticationResult> LoginGoogleUser(ClaimsPrincipal principal)
+    {
+        var email = principal.FindFirstValue(ClaimTypes.Email);
+        var user = await _userRepository.GetByEmail(email);
+
+        if (user is null)
+        {
+            throw new NotFoundException($"User {email} do not exist");
+        }
+
+        return GetUserToken(user);
+    }
+
+    private async Task<UserAuthenticationResult> RegisterGoogleUser(ClaimsPrincipal principal)
+    {
+        var email = principal.FindFirstValue(ClaimTypes.Email)
+            ?? throw new InvalidParametersException("Email is missing");
+
+        var name = principal.FindFirstValue(ClaimTypes.Name)
+                    ?? throw new InvalidParametersException("Name is missing");
+
+        var user = await _userRepository.Add(new User
+        {
+            Email = email,
+            FirstName = name,
+            LastName = principal.FindFirstValue(ClaimTypes.Surname) ?? string.Empty,
+            Password = null,
+        });
+
+        return GetUserToken(user);
     }
 
     public async Task<WorkspaceAuthenticationResult> GetWorkspaceTokenAsync(TokenRequestDto tokenRequestDto)
