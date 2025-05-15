@@ -12,7 +12,7 @@ public class Workspace : BaseEntity<int>
 
     public string Password { get; set; }
 
-    public IList<WorkspaceTag> Tags { get; set; }
+    public IList<WorkspaceTag> Tags { get; set; } = [];
 
     public IList<Workplace> Workplaces { get; set; }
 }
