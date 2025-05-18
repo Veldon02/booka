@@ -5,20 +5,21 @@ using Booka.Core.DTOs.Security;
 using Booka.Core.Exceptions;
 using Booka.Core.Interfaces.Repositories;
 using Booka.Core.Interfaces.Security;
+using Booka.Core.Interfaces.Services;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Booka.Infrastructure.Security;
 
 public class AuthenticationService : IAuthenticationService
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
     private readonly IWorkspaceRepository _workspaceRepository;
     private readonly IJwtService _jwtService;
     private readonly IHasher _hasher;
 
-    public AuthenticationService(IUserRepository userRepository, IJwtService jwtService, IHasher hasher, IWorkspaceRepository workspaceRepository)
+    public AuthenticationService(IUserService userService, IJwtService jwtService, IHasher hasher, IWorkspaceRepository workspaceRepository)
     {
-        _userRepository = userRepository;
+        _userService = userService;
         _jwtService = jwtService;
         _hasher = hasher;
         _workspaceRepository = workspaceRepository;
@@ -26,7 +27,7 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<UserAuthenticationResult> GetUserTokenAsync(TokenRequestDto tokenRequestDto)
     {
-        var user = await _userRepository.GetByEmail(tokenRequestDto.Email);
+        var user = await _userService.GetByEmailAsync(tokenRequestDto.Email);
 
         if (user?.Password is null)
         {
@@ -69,7 +70,7 @@ public class AuthenticationService : IAuthenticationService
     private async Task<UserAuthenticationResult> LoginGoogleUser(ClaimsPrincipal principal)
     {
         var email = principal.FindFirstValue(ClaimTypes.Email);
-        var user = await _userRepository.GetByEmail(email);
+        var user = await _userService.GetByEmailAsync(email);
 
         if (user is null)
         {
@@ -87,7 +88,7 @@ public class AuthenticationService : IAuthenticationService
         var name = principal.FindFirstValue(ClaimTypes.Name)
                     ?? throw new InvalidParametersException("Name is missing");
 
-        var user = await _userRepository.Add(new User
+        var user = await _userService.AddAsync(new User
         {
             Email = email,
             FirstName = name,

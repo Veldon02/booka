@@ -1,0 +1,60 @@
+﻿@model string
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Welcome to Booka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #003366;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #007acc;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            color: white;
+            margin: 0;
+        }
+        .content {
+            background-color: #ffffff;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 122, 204, 0.2);
+        }
+        .footer {
+            text-align: center;
+            color: #666666;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        a {
+            color: #007acc;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to Booka</h1>
+    </div>
+
+    <div class="content">
+        <h2>Hello @Model,</h2>
+        <p>Thank you for registering with <strong>Booka</strong>!</p>
+        <p>We’re excited to have you on board!</p>
+        <p>Happy exploring!</p>
+
+        <p>Best regards,<br />The Booka Team</p>
+    </div>
+
+    <div class="footer">
+        &copy; @DateTime.Now.Year Booka. All rights reserved.
+    </div>
+</body>

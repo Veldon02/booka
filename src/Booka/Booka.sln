@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booka.Infrastructure", "Boo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Core", "02_Core", "{775A8F98-71B8-43DE-B89D-03BE7BE7234F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booka.Core", "Booka.Core\Booka.Core.csproj", "{496EBA40-D77E-4A65-93B9-F5E06F6EC308}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Booka.Core", "Booka.Core\Booka.Core.csproj", "{496EBA40-D77E-4A65-93B9-F5E06F6EC308}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booka.EmailNotificationFunctionApp", "Booka.EmailNotificationFunctionApp\Booka.EmailNotificationFunctionApp.csproj", "{E09D1BC2-1569-4A3E-B55F-9D71F2A8766F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{496EBA40-D77E-4A65-93B9-F5E06F6EC308}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{496EBA40-D77E-4A65-93B9-F5E06F6EC308}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{496EBA40-D77E-4A65-93B9-F5E06F6EC308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E09D1BC2-1569-4A3E-B55F-9D71F2A8766F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E09D1BC2-1569-4A3E-B55F-9D71F2A8766F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E09D1BC2-1569-4A3E-B55F-9D71F2A8766F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E09D1BC2-1569-4A3E-B55F-9D71F2A8766F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{54A75974-92D1-4F31-BEAB-76A9FCCE4D53} = {4EA58269-57D8-449C-966C-CC3CF8686F59}
 		{9F5B9334-CE7C-44F3-80EC-057F5395BC45} = {78152D35-4C99-40BB-87C6-C19BDAE7B2F9}
 		{496EBA40-D77E-4A65-93B9-F5E06F6EC308} = {775A8F98-71B8-43DE-B89D-03BE7BE7234F}
+		{E09D1BC2-1569-4A3E-B55F-9D71F2A8766F} = {78152D35-4C99-40BB-87C6-C19BDAE7B2F9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F85A28EE-0DA1-4A61-A622-35982142A418}

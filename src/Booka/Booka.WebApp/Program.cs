@@ -7,7 +7,7 @@ var config = builder.Configuration;
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddServices();
+builder.Services.AddServices(config);
 builder.Services.AddRepositories();
 builder.Services.AddConfigurations(config);
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
