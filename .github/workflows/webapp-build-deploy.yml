@@ -1,4 +1,4 @@
-name: Backoffice Deploy
+name: WebApp Deploy
 
 on: [workflow_dispatch]
 
