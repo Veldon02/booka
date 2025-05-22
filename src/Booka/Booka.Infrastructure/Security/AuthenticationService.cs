@@ -103,9 +103,7 @@ public class AuthenticationService : IAuthenticationService
     {
         var workspace = await _workspaceRepository.GetByEmail(tokenRequestDto.Email);
 
-        var verified = _hasher.Verify(workspace?.Password, tokenRequestDto.Password);
-
-        if (workspace is null || !verified)
+        if (workspace is null || !_hasher.Verify(workspace.Password, tokenRequestDto.Password))
         {
             throw new InvalidParametersException("email or password is invalid");
         }

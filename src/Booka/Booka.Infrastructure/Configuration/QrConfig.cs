@@ -10,5 +10,7 @@ public class QrConfig
 
     public int Margin { get; set; }
 
+    public string FontFamily { get; set; }
+
     public string QrScanUrlPattern { get; set; }
 }

@@ -27,7 +27,12 @@ public class QrCodeGeneratorService : IQrCodeGeneratorService
         paint.IsAntialias = true;
         paint.Color = SKColors.Black;
 
-        using var font = new SKFont(SKTypeface.FromFamilyName("Agency FB", SKFontStyleWeight.Bold, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright));
+        using var font = new SKFont(SKTypeface.FromFamilyName(
+            _qrConfig.FontFamily, 
+            SKFontStyleWeight.Bold,
+            SKFontStyleWidth.Normal, 
+            SKFontStyleSlant.Upright));
+
         font.Size = _qrConfig.FontSize;
 
         var actualFontSize = GetActualFontHeight(text, paint, font);
@@ -42,10 +47,10 @@ public class QrCodeGeneratorService : IQrCodeGeneratorService
 
         // Draw number and QR code
         var textX = canvasWidth / 2f;
-        var textY = (float)actualFontSize + _qrConfig.Margin; 
+        var textY = actualFontSize + _qrConfig.Margin;
 
+        canvas.DrawBitmap(qrCodeBitmap, 0, textY);
         canvas.DrawText(text, textX, textY, SKTextAlign.Center, font, paint);
-        canvas.DrawBitmap(qrCodeBitmap, 0, (int)textY);
 
         return SaveToStream(surface);
     }
