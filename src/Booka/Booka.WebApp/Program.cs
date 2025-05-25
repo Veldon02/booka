@@ -1,6 +1,7 @@
 using Booka.Infrastructure;
 using Booka.WebApp.Mappers;
 using Booka.WebApp.Extension;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -22,11 +23,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    options.RouteTemplate = "/openapi/{documentName}.json";
+});
+app.MapScalarApiReference();
 
 app.UseExceptionHandler();
 
