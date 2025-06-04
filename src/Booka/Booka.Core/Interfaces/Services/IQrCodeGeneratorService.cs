@@ -2,5 +2,5 @@
 
 public interface IQrCodeGeneratorService
 {
-    Stream GenerateWorkplaceBook(int workplaceId);
+    Stream GenerateWorkplaceBook(int workplaceId, int workplaceNumber);
 }
