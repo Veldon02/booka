@@ -72,6 +72,6 @@ public class WorkplaceService : IWorkplaceService
             throw new ForbiddenException($"You are not allowed to delete workplace {workplaceId}");
         }
 
-        return _qrCodeGeneratorService.GenerateWorkplaceBook(workplace.Id);
+        return _qrCodeGeneratorService.GenerateWorkplaceBook(workplace.Id, workplace.Number);
     }
 }

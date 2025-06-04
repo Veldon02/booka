@@ -16,9 +16,9 @@ public class QrCodeGeneratorService : IQrCodeGeneratorService
         _qrConfig = qrConfig.Value;
     }
 
-    public Stream GenerateWorkplaceBook(int workplaceId)
+    public Stream GenerateWorkplaceBook(int workplaceId, int workplaceNumber)
     {
-        var text = $"{workplaceId}";
+        var text = $"{workplaceNumber}";
 
         var qrCodeImage = GenerateQrCode(workplaceId);
         using var qrCodeBitmap = SKBitmap.Decode(new MemoryStream(qrCodeImage));
